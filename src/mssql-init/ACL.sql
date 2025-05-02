@@ -1,17 +1,16 @@
 WAITFOR DELAY '00:00:03';
 GO
 
-CREATE DATABASE inventory ;
-GO
-CREATE DATABASE dwh ;
-GO
-WAITFOR DELAY '00:00:02';
 GO
 CREATE LOGIN [admin] WITH PASSWORD='Abcd1234', DEFAULT_DATABASE=[master], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF;
+GO
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [admin];
 GO
 WAITFOR DELAY '00:00:02';
 GO
 CREATE LOGIN [sql_helper] WITH PASSWORD='Abcd1234', DEFAULT_DATABASE=[master], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF;
+GO
+ALTER SERVER ROLE [sysadmin] ADD MEMBER [sql_helper];
 GO
 WAITFOR DELAY '00:00:02';
 GO
@@ -36,61 +35,5 @@ GO
 WAITFOR DELAY '00:00:02';
 GO
 
-
-
-
-
-
-
-USE [inventory]
-GO
-
-CREATE SCHEMA INV;
-GO
-
-CREATE USER [admin] FOR LOGIN [admin] WITH DEFAULT_SCHEMA=[dbo];
-GO
-CREATE USER [sql_helper] FOR LOGIN [sql_helper] WITH DEFAULT_SCHEMA=[dbo];
-GO
-CREATE USER [kafka_src] FOR LOGIN [kafka_src] WITH DEFAULT_SCHEMA=[dbo];
-GO
-CREATE USER [seatunnel_src] FOR LOGIN [seatunnel_src] WITH DEFAULT_SCHEMA=[dbo];
-GO
-
-ALTER ROLE db_owner ADD MEMBER [admin];
-GO
-ALTER ROLE db_owner ADD MEMBER [sql_helper];
-GO
-ALTER ROLE db_owner ADD MEMBER [kafka_src];
-GO
-ALTER ROLE db_owner ADD MEMBER [seatunnel_src];
-GO
-
-
-
-
-
-USE [dwh]
-GO
-
-CREATE SCHEMA DW_ETL;
-GO
-
-CREATE USER [admin] FOR LOGIN [admin] WITH DEFAULT_SCHEMA=[dbo];
-GO
-CREATE USER [sql_helper] FOR LOGIN [sql_helper] WITH DEFAULT_SCHEMA=[dbo];
-GO
-CREATE USER [kafka_sink] FOR LOGIN [kafka_sink] WITH DEFAULT_SCHEMA=[dbo];
-GO
-CREATE USER [seatunnel_sink] FOR LOGIN [seatunnel_sink] WITH DEFAULT_SCHEMA=[dbo];
-GO
-ALTER ROLE db_owner ADD MEMBER [admin];
-GO
-ALTER ROLE db_owner ADD MEMBER [sql_helper];
-GO
-ALTER ROLE db_owner ADD MEMBER [kafka_sink];
-GO
-ALTER ROLE db_owner ADD MEMBER [seatunnel_sink];
-GO
 
 

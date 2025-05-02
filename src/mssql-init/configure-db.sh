@@ -18,6 +18,11 @@ fi
 echo -e "\n>>> Setting up databases and permissions ...\n"
 ${SQLCMD} -S localhost -U sa -P $SA_PASSWORD -d master -C -i /mssql-init/ACL.sql
 
+echo -e "\n>>> Setting up databases ...\n"
+${SQLCMD} -S localhost -U sa -P $SA_PASSWORD -d master -C -i /mssql-init/setup_db_inventory.sql
+${SQLCMD} -S localhost -U sa -P $SA_PASSWORD -d master -C -i /mssql-init/setup_db_dwh.sql
+
+
 ### The below are some sample data load into database
 #echo -e "\n>>> Creating Tzdb schema for ${DM_SQLSVR_DATABASE} ...\n"
 #/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -d ${DST_DB_NAME} -i /mssql-init/create_Tzdb_tables.sql
