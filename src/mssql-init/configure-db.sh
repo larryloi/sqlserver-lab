@@ -21,6 +21,7 @@ ${SQLCMD} -S localhost -U sa -P $SA_PASSWORD -d master -C -i /mssql-init/ACL.sql
 echo -e "\n>>> Setting up databases ...\n"
 ${SQLCMD} -S localhost -U sa -P $SA_PASSWORD -d master -C -i /mssql-init/setup_db_inventory.sql
 ${SQLCMD} -S localhost -U sa -P $SA_PASSWORD -d master -C -i /mssql-init/setup_db_dwh.sql
+${SQLCMD} -S localhost -U sa -P $SA_PASSWORD -d master -C -i /mssql-init/setup_db_company.sql
 
 
 ### The below are some sample data load into database
