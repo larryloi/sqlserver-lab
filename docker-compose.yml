@@ -16,26 +16,19 @@ services:
       TZ: Asia/Macau
       ACCEPT_EULA: Y
       SA_PASSWORD: Abcd1234
-      MSSQL_DATA_DIR: /var/opt/sqlserver/data
-      MSSQL_LOG_DIR: /var/opt/sqlserver/log
-      MSSQL_BACKUP_DIR: /var/opt/sqlserver/backup
+      MSSQL_PID: Developer
       MSSQL_MEMORY_LIMIT_MB: 2048
-        #MSSQL_MEMORY_LIMIT_MB: 12288
       MSSQL_AGENT_ENABLED: 1
       #MSSQL_COLLATION: Latin1_General_CS_AS
     ports:
       - 1433:1433
     volumes:
       - ./src/mssql-init:/mssql-init
-      - sql-server-data:/var/opt/sqlserver
-
+      - sql-server-data:/var/opt/mssql/
 
 volumes:
   sql-server-data:
     driver: local
-  #  sqldata:
-  #  sqllog:
-  #  sqlbackup:
 
 networks:
   integration:
