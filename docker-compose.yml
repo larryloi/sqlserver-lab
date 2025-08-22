@@ -25,6 +25,22 @@ services:
     volumes:
       - ./src/mssql-init:/mssql-init
       - sql-server-data:/var/opt/mssql/
+      #- ./sqlserver.crt:/var/opt/mssql/certs/sqlserver.crt
+      #- ./sqlserver.key:/var/opt/mssql/certs/sqlserver.key
+      #    command: 
+      #- /opt/mssql/bin/mssql-conf
+      #- set
+      #- network.tlscert
+      #- /var/opt/mssql/certs/sqlserver.crt
+      #- set
+      #- network.tlskey
+      #- /var/opt/mssql/certs/sqlserver.key
+      #- set
+      #- network.tlsprotocols
+      #- "1.2"
+      #- set
+      #- network.forceencryption
+      #- "1"
 
 volumes:
   sql-server-data:
