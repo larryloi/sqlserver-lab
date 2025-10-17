@@ -12,15 +12,13 @@ CREATE USER [kafka_sink] FOR LOGIN [kafka_sink] WITH DEFAULT_SCHEMA=[DW_ETL];
 GO
 CREATE USER [seatunnel_sink] FOR LOGIN [seatunnel_sink] WITH DEFAULT_SCHEMA=[DW_ETL];
 GO
+CREATE USER [flink_sink] FOR LOGIN [flink_sink] WITH DEFAULT_SCHEMA=[DW_ETL];
+GO
 
 ALTER ROLE db_owner ADD MEMBER [kafka_sink];
 GO
 ALTER ROLE db_owner ADD MEMBER [seatunnel_sink];
 GO
-
-
-
-
-
-
-    
+ALTER ROLE db_owner ADD MEMBER [flink_sink];
+GO
+   

@@ -10,11 +10,15 @@ CREATE USER [kafka_src] FOR LOGIN [kafka_src] WITH DEFAULT_SCHEMA=[dbo];
 GO
 CREATE USER [seatunnel_src] FOR LOGIN [seatunnel_src] WITH DEFAULT_SCHEMA=[dbo];
 GO
+CREATE USER [flink_src] FOR LOGIN [flink_src] WITH DEFAULT_SCHEMA=[dbo];
+GO
 
 
 ALTER ROLE db_owner ADD MEMBER [kafka_src];
 GO
 ALTER ROLE db_owner ADD MEMBER [seatunnel_src];
+GO
+ALTER ROLE db_owner ADD MEMBER [flink_src];
 GO
 
 
