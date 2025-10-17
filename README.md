@@ -1,34 +1,46 @@
 # sqlserver-lab
 
-### How to use
+Quick local SQL Server sandbox using Docker Compose.
+
+Prerequisites
+- Docker and Docker Compose v2
+
+Quick start
+
+Run the containers in detached mode:
 
 ```bash
-root@db01:/docker/sqlserver-lab# make up
-docker compose up -d
-[+] Running 3/3
- ✔ Network sqlserver-lab_integration       Created 
- ✔ Volume "sqlserver-lab_sql-server-data"  Created  
- ✔ Container sqlserver                     Started      
-root@db01:/docker/sqlserver-lab#
-root@db01:/docker/sqlserver-lab#
-root@db01:/docker/sqlserver-lab# make shell
-docker compose exec sqlserver bash
-root@sqlserver:/#
-root@db01:/docker/sqlserver-lab# make shell
-docker compose exec sqlserver bash
-root@sqlserver:/#
-root@sqlserver:/# bash /mssql-init/configure-db.sh
-
->>> Setting up databases and permissions ...
-
-
->>> Setting up databases ...
-
-Changed database context to 'inventory'.
-Update mask evaluation will be disabled in net_changes_function because the CLR configuration option is disabled.
-Job 'cdc.inventory_capture' started successfully.
-Job 'cdc.inventory_cleanup' started successfully.
-Changed database context to 'dwh'.
-root@sqlserver:/#
-
+make up
 ```
+
+Open a root shell in the SQL Server container:
+
+```bash
+make shell
+```
+
+Run the init scripts inside the container (example):
+
+```bash
+bash /mssql-init/configure-db.sh
+```
+
+Health and readiness
+- The compose file includes a healthcheck that attempts a quick SQL query using the SA credentials defined in `env/sqlserver.env`.
+- You can wait for the container to be healthy with:
+
+```bash
+make wait-for-health
+```
+
+Security notes
+- Do NOT commit production secrets. `env/sqlserver.env` currently contains an example `SA_PASSWORD` used for local dev only. Consider using Docker secrets or an external secrets manager for anything sensitive.
+
+Files of interest
+- `docker-compose.yml` - service definition, volumes, healthcheck
+- `Dockerfile` - optional image tweaks (does not embed secrets)
+- `src/mssql-init` - initialization scripts executed inside the container
+
+Issues / next steps
+- Consider switching SA_PASSWORD to a Docker secret or environment injection in CI
+- Add CI workflow to run the init scripts against a temporary container
